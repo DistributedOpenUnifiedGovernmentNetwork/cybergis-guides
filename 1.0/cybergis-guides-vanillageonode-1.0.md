@@ -27,13 +27,13 @@ guide itself, please submit them to this repo at [https://github.com/state-hiu/c
 Before you begin the installation process, you'll need to provision a virtual or physical machine.  Vanilla GeoNode will run on [Amazon Web Services (AWS)](#aws-machines), [Vagrant](#vagrant-machines), and almost any type of virtual machine.
 
 ### AWS Machines
-If you are provisioning an instance using Amazon Web Services, we recommend you use the baseline Ubuntu 12.04 LTS AMI managed by Ubuntu/Canonical.  You can lookup the most recent ami code on this page: [https://cloud-images.ubuntu.com/releases/precise/release/](https://cloud-images.ubuntu.com/releases/precise/release/).  Generally speaking, you should use the 64-bit EBS-SSD AMI for ROGUE GeoNode.
+If you are provisioning an instance using Amazon Web Services, we recommend you use the baseline Ubuntu 14.04 LTS AMI managed by Ubuntu/Canonical.  You can lookup the most recent ami code on this page: [https://cloud-images.ubuntu.com/releases/trusty/release/](https://cloud-images.ubuntu.com/releases/trusty/release/).  Generally speaking, you should use the 64-bit EBS-SSD AMI for ROGUE GeoNode.
 
 ### Vagrant Machines
 
 If you are installing vanilla GeoNode on a Vagrant VM it is a good idea to assert the correct locale through the following code block.  Most other builds, such as the Amazon AWS Ubuntu images, do not need this step as they are configured properly.  See issue 985 for explanation at [https://github.com/GeoNode/geonode/issues/985](https://github.com/GeoNode/geonode/issues/985).
 
-```
+```shell
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -47,7 +47,7 @@ dpkg-reconfigure locales
 
 Launching a vanilla GeoNode only requires a few simple steps.  The installation process is very quick on a clean build and can be completed in less than 15 minutes.
 
-These instructions were written for deployment on the Ubuntu operating system, but may work on other Linux variants.  GeoNode (Vanilla and ROGUE) will not install on Ubuntu 14.04 LTS yet as a few dependencies have not been upgraded yet.  We recommend using Ubuntu 12.04 LTS.
+These instructions were written for deployment on the Ubuntu operating system, but may work on other Linux variants.  GeoNode (Vanilla and ROGUE) will not install on Ubuntu 14.04 LTS yet as a few dependencies have not been upgraded yet.  We recommend using Ubuntu 14.04 LTS.
 
 You'll want to complete all the following command line calls as root (with login shell and enviornment).  Therefore, use `sudo su -` to become the root user.  Do not use `sudo su root`, as that will not provide the environment necessary.
 
@@ -68,7 +68,7 @@ No known issues
 
 The first step is install the CyberGIS scripts from the [cybergis-scripts](https://github.com/state-hiu/cybergis-scripts) repo.
 
-```
+```shell
 apt-get update
 apt-get install -y curl vim git
 apt-get install -y python-software-properties
@@ -83,20 +83,20 @@ The second step is to install the GeoNode apt repository.
 
 The following code block will download and configure the GeoNode apt repository.
 
-```
+```shell
 add-apt-repository ppa:geonode/release
 apt-get update
 ```
 
 You can check that you added the GeoNode apt repo to your sources correctly, by checking the sources list with:
 
-```
-cat /etc/apt/sources.list.d/geonode-release-precise.list
+```shell
+cat /etc/apt/sources.list.d/geonode-release-trusty.list
 ```
 
 and by checking the apt cache with the following command.
 
-```
+```shell
 apt-cache search geonode
 ```
 
@@ -104,7 +104,7 @@ apt-cache search geonode
 
 Make sure you've ran apt-get after adding the GeoNode apt repo.  To install vanilla GeoNode, just run the following command.
 
-```
+```shell
 apt-get install geonode
 ```
 
@@ -112,7 +112,7 @@ apt-get install geonode
 
 By default, GeoNode does not create an admin account.  The following command will create an admin account.  We **strongly recommend** just using admin/admin and changing the password later.
 
-```
+```shell
 geonode createsuperuser
 ```
 
@@ -120,6 +120,6 @@ geonode createsuperuser
 
 To ehnace security, by default, GeoNode does not respond to any url.  To enable GeoNode to respond to its IP address or domain execute the following command.
 
-```
+```shell
 geonode-updateip <ip/domain>
 ```

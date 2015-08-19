@@ -32,6 +32,9 @@ apt-get install -y libgeos-dev libproj-dev
 cd /opt
 git clone https://github.com/state-hiu/cybergis-scripts.git cybergis-scripts.git
 cp cybergis-scripts.git/profile/cybergis-scripts.sh /etc/profile.d/
+
+source /etc/profile.d/cybergis-scripts.sh
+#or
 exit
 
 #Step 2
@@ -39,11 +42,9 @@ sudo su -
 cybergis-script-rogue.sh prod user
 
 #Step 3
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 cybergis-script-rogue.sh prod rvm
 cybergis-script-rogue.sh prod bundler
-source /usr/local/rvm/scripts/rvm; bundle install; berks install;
-#If the previous line stalls, then run the below line and then rerun.
-source /usr/local/rvm/scripts/rvm; gem install dep-selector-libgecode -v '1.0.2'
 
 #Step 4
 
@@ -71,7 +72,9 @@ cybergis-script-geoshape-configure.py
 cybergis-script-geoshape-configure.py --fqdn FQDN
 
 #Step 5
+cybergis-script-rogue.sh prod gems
 cybergis-script-rogue.sh prod provision
+##
 vim /etc/hosts/
 vim /var/lib/geonode/rogue_geonode/rogue_geonode/local_settings.py
 #Disable GZIP Compression if Needed
